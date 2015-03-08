@@ -1,12 +1,11 @@
-newPackage("PBEI",
+newPackage("BEI",
 	Version => "1.0",
 	Date => "March 2015",
 	Authors => {
      {Name => "Tobias Windisch",
       Email => "windisch@ovgu.de",
       HomePage => "http://www-e.uni-magdeburg.de/windisch/"}},
-   Headline => "Package for computations with parity binomial edge
-   ideals",
+   Headline => "Package for computations with  binomial edge ideals",
 	Configuration => {},
 	Reload=>true
 	)
@@ -14,6 +13,7 @@ newPackage("PBEI",
 export {
 
    --methods
+   binomialEdgeIdeal,
    parityBinomialEdgeIdeal,
    disconnectors,
    isDisconnector,
@@ -21,10 +21,12 @@ export {
    s,
 
    -- wrapper
+   bei,
    pbei,
 
    --Options
-   Field, --
+   Field,
+   Permanental,
    TermOrder, 
    EffectiveOnly,
    UseHypergraphs
@@ -49,18 +51,33 @@ needsPackage "Binomials";
 -- Parity Binomial Edge Ideal --
 --------------------------------
 
-parityBinomialEdgeIdeal = method (Options => {Field => QQ,TermOrder=>Lex})
+parityBinomialEdgeIdeal = method (Options => {Field =>
+QQ,TermOrder=>Lex, Permanental=>false})
 parityBinomialEdgeIdeal List := Ideal => opts -> E -> (parityBinomialEdgeIdeal(graph E,opts));
 parityBinomialEdgeIdeal Graph := Ideal => opts -> G -> (
 v:=vertices(G);
+c:=0;
 e:=apply(edges(G),toList);
-R:=(opts.Field)[(for vv in v list xx_(vv))|(for vv in v list yy_(vv)),
-      MonomialOrder=>opts.TermOrder];
-
-return ideal for ee in e list (xx_(ee_0))_R*(xx_(ee_1))_R-(yy_(ee_0))_R*(yy_(ee_1))_R;
+R:=(opts.Field)[(for vv in v list xx_(vv))|(for vv in v list yy_(vv)),MonomialOrder=>opts.TermOrder];
+if opts.Permanental then c=1 else c=-1;
+return ideal for ee in e list (xx_(ee_0))_R*(xx_(ee_1))_R+c*(yy_(ee_0))_R*(yy_(ee_1))_R;
 );
 
+
+binomialEdgeIdeal = method (Options => {Field=>QQ,TermOrder=>Lex,Permanental=>false})
+binomialEdgeIdeal List := Ideal => opts -> E -> (binomialEdgeIdeal(graph E,opts));
+binomialEdgeIdeal Graph := Ideal => opts -> G -> (
+v:=vertices(G);
+c:=0;
+e:=apply(edges(G),toList);
+R:=(opts.Field)[(for vv in v list xx_(vv))|(for vv in v list yy_(vv)),MonomialOrder=>opts.TermOrder];
+if opts.Permanental then c=1 else c=-1;
+return ideal for ee in e list (xx_(ee_0))_R*(yy_(ee_1))_R+c*(yy_(ee_0))_R*(xx_(ee_1))_R;
+);
+
+
 pbei = O -> parityBinomialEdgeIdeal O
+bei = O -> binomialEdgeIdeal O
 
 --------------------------------
 --        Disconnectors       --
@@ -141,6 +158,26 @@ return 2*b+nb;
 
 beginDocumentation()
 
+
+document {
+        Key => BEI,
+        Headline => "a package for binomial edge ideals",
+
+        EM "BEI", " is a package for computations with binomial edge
+        ideals",
+	
+	BR{},BR{},
+	BOLD "Literature \n",
+	UL {
+	  LI {"[HHHTR2010] ", EM "Binomial edge ideals and conditional
+     independence statements ", "(J. Herzog, T. Hibi, F. Hreinsdottir,
+     T. Kahle, J. Rauh, 2010).\n"},
+	  LI {"[HMMW2014] ", EM "On the ideal of orthogonal representations
+     of a graph in R^2 ", "(J. Herzog, A. Macchia, S. Madani,
+     V. Welker, 2014).\n"},
+	  LI {"[KSW2015] ", EM "Parity binomial edge ideals ", "(T. Kahle,
+     C. Sarmiento, T. Windisch, 2015)"}}}
+
 document {
      Key => {parityBinomialEdgeIdeal,
 	  (parityBinomialEdgeIdeal, Graph), (parityBinomialEdgeIdeal, List)},
@@ -150,15 +187,42 @@ document {
           "G" => { "a graph"} },
      Outputs => {
           {"the parity binomial edge ideal of G"} },
-     "This routine returns the parity binomial edge ideal of G.",
+     "This routine returns the (permanental) parity binomial edge ideal of G.",
      EXAMPLE {
           "G=graph({{1,2},{2,3},{3,1}})",
           "I = parityBinomialEdgeIdeal(G,Field=>ZZ/2)",
           "J = parityBinomialEdgeIdeal(G)"
           },
      "A synonym for this function is ", TO pbei, ".",
-     SeeAlso => pbei}
+     SeeAlso => {pbei,binomialEdgeIdeal}}
 
+document {
+     Key => pbei,
+     Headline => "Parity binomial edge ideal",
+     "pbei is a synonym for ", TO parityBinomialEdgeIdeal ,"."}
+
+document {
+     Key => {binomialEdgeIdeal,
+	  (binomialEdgeIdeal, Graph), (binomialEdgeIdeal, List)},
+     Headline => "Binomial edge ideals",
+     Usage => "binomialEdgeIdeal G",
+     Inputs => {
+          "G" => { "a graph"} },
+     Outputs => {
+          {"the binomial edge ideal of G"} },
+     "This routine returns the (permanental) binomial edge ideal of G.",
+     EXAMPLE {
+          "G=graph({{1,2},{2,3},{3,1}})",
+          "I = binomialEdgeIdeal(G,Field=>ZZ/2)",
+          "J = binomialEdgeIdeal(G,Permanental=>true)"
+          },
+     "A synonym for this function is ", TO bei, ".",
+     SeeAlso => {bei,parityBinomialEdgeIdeal}}
+
+document {
+     Key => bei,
+     Headline => "Binomial edge ideal",
+     "bei is a synonym for ", TO binomialEdgeIdeal ,"."}
 
 document {
      Key => {disconnectors,
@@ -169,7 +233,8 @@ document {
           "G" => { "a graph"} },
      Outputs => {
           {"the disconnectors of G"} },
-     "This routine computes the disconnectors of G",
+     "This routine computes the disconnectors of the parity binomial
+     edge ideal and the permanental binomial edge ideal of G",
      EXAMPLE {
           "G=graph({{1,2},{2,3},{3,1}})",
           "d = disconnectors(G)",
