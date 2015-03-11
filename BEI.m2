@@ -130,11 +130,11 @@ isEffective = method (Options => {UseHypergraphs => false})
 isEffective (Graph,Set) := Boolean => opts -> (G,S) -> (isEffective(G,toList(S),opts));
 isEffective (Graph,List) := Boolean => opts -> (G,S) -> (
 if not isDisconnector(G,S) then return false;
-if opts.UseHypergraphs = false then (
+if not opts.UseHypergraphs then (
     d:=disconnectors(G,EffectiveOnly=>true);
     return member(set(d),apply(d,set));
     );
-if opts.UseHypergraphs = true then (
+if opts.UseHypergraphs then (
    << "not implemented yet"; 
     );
 );
