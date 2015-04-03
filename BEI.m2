@@ -6,6 +6,7 @@ newPackage("BEI",
       Email => "windisch@ovgu.de",
       HomePage => "http://www.uni-magdeburg.de/windisch/"}},
    Headline => "Package for computations with  binomial edge ideals",
+   PackageImports => {"Graphs","Binomials"},
 	Configuration => {},
 	Reload=>true
 	)
@@ -42,10 +43,6 @@ export {
 --variable for polynomial ring
 xx:=vars(23);
 yy:=vars(24);
-
-
-needsPackage "Graphs";
-needsPackage "Binomials";
 
 --------------------------------
 -- Parity Binomial Edge Ideal --
@@ -295,6 +292,13 @@ assert(set(disconnectors G)===set{{},{1},{2},{3}});
 ///
 
 TEST ///
+--test interaction with "Graphs" package
+needsPackage "Graphs";
+G=graph({{1,2},{2,3},{3,1}});
+assert(set(disconnectors G)===set{{},{1},{2},{3}});
+///
+
+TEST ///
 --a non-disconnector
 G={{1,2},{1,3},{2,3},{2,4},{4,5},{5,2}};
 assert(isDisconnector(G,{1,3})===false);
@@ -313,6 +317,7 @@ I1=pbei(G,Field => ZZ/2);
 I2=pbei(G,Permanental=>true);
 assert(I1==sub(I2,ring I1));
 ///
+
 
 end
 
