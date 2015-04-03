@@ -34,12 +34,6 @@ export {
 }
 
 
----------------------------------------------
---       TODO
--- isEffective computations using hypergraphs
--- give method s a better name
----------------------------------------------
-
 --variable for polynomial ring
 xx:=vars(23);
 yy:=vars(24);
