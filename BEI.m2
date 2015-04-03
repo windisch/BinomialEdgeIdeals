@@ -117,6 +117,8 @@ return apply(unique D,toList);
 
 
 isDisconnector = method ()
+isDisconnector (List,List) := Boolean => (G,S) -> (isDisconnector(graph(G),S));
+isDisconnector (List,Set) := Boolean => (G,S) -> (isDisconnector(graph(G),toList(S)));
 isDisconnector (Graph,Set) := Boolean => (G,S) -> (isDisconnector(G,toList(S)));
 isDisconnector (Graph,List) := Boolean => (G,S) -> (
 GS:=deleteVertices(G,S);
@@ -140,6 +142,7 @@ if opts.UseHypergraphs then (
 );
 
 s = method()
+s List := ZZ => G -> (s(graph(G)));
 s Graph := ZZ => G -> (
 nb:=0;
 b:=0;
@@ -293,15 +296,13 @@ assert(set(disconnectors G)===set{{},{1},{2},{3}});
 
 TEST ///
 --a non-disconnector
-needsPackage "Graphs";
-G=graph({{1,2},{1,3},{2,3},{2,4},{4,5},{5,2}});
+G={{1,2},{1,3},{2,3},{2,4},{4,5},{5,2}};
 assert(isDisconnector(G,{1,3})===false);
 ///
 
 TEST ///
 --count connected components
-needsPackage "Graphs";
-G=graph({{1,2},{2,3},{3,1},{4,5},{6,7},{7,8},{6,8}});
+G={{1,2},{2,3},{3,1},{4,5},{6,7},{7,8},{6,8}};
 assert(s(G)==4);
 ///
 
