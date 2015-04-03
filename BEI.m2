@@ -1,10 +1,10 @@
 newPackage("BEI",
 	Version => "1.0",
-	Date => "March 2015",
+	Date => "April 2015",
 	Authors => {
      {Name => "Tobias Windisch",
       Email => "windisch@ovgu.de",
-      HomePage => "http://www-e.uni-magdeburg.de/windisch/"}},
+      HomePage => "http://www.uni-magdeburg.de/windisch/"}},
    Headline => "Package for computations with  binomial edge ideals",
 	Configuration => {},
 	Reload=>true
