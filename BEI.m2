@@ -287,28 +287,32 @@ document {
 
 TEST ///
 --compute disconnectors of triangle
-G=graph({{1,2},{2,3},{3,1}});
+G={{1,2},{2,3},{3,1}};
 assert(set(disconnectors G)===set{{},{1},{2},{3}});
 ///
 
 TEST ///
 --a non-disconnector
+needsPackage "Graphs";
 G=graph({{1,2},{1,3},{2,3},{2,4},{4,5},{5,2}});
 assert(isDisconnector(G,{1,3})===false);
 ///
 
 TEST ///
 --count connected components
+needsPackage "Graphs";
 G=graph({{1,2},{2,3},{3,1},{4,5},{6,7},{7,8},{6,8}});
 assert(s(G)==4);
 ///
 
 TEST ///
 --pbei = permanental bei in charac 2
-G=graph({{1,2},{1,3},{2,4},{3,4},{4,5},{5,6},{6,7},{6,8},{7,9},{8,9}})
+G={{1,2},{1,3},{2,4},{3,4},{4,5},{5,6},{6,7},{6,8},{7,9},{8,9}}
 I1=pbei(G,Field => ZZ/2);
 I2=pbei(G,Permanental=>true);
 assert(I1==sub(I2,ring I1));
 ///
+
+end
 
 
