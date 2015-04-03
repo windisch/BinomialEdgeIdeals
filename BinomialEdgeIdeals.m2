@@ -1,4 +1,4 @@
-newPackage("BEI",
+newPackage("BinomialEdgeIdeals",
 	Version => "1.0",
 	Date => "April 2015",
 	Authors => {
@@ -154,10 +154,10 @@ beginDocumentation()
 
 
 document {
-        Key => BEI,
+        Key => BinomialEdgeIdeals,
         Headline => "a package for binomial edge ideals",
 
-        EM "BEI", " is a package for computations with binomial edge
+        EM "BinomialEdgeIdeals", " is a package for computations with binomial edge
         ideals",
 	
 	BR{},BR{},
