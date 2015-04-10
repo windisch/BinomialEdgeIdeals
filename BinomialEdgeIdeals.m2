@@ -178,14 +178,17 @@ document {
      Headline => "Parity binomial edge ideals",
      Usage => "parityBinomialEdgeIdeal G",
      Inputs => {
-          "G" => { "a graph"} },
+          "G" => { "a Graph or a List"} },
      Outputs => {
           {"the parity binomial edge ideal of G"} },
      "This routine returns the (permanental) parity binomial edge ideal of G.",
      EXAMPLE {
           "G={{1,2},{2,3},{3,1}}",
           "I = parityBinomialEdgeIdeal(G,Field=>ZZ/2)",
-          "J = parityBinomialEdgeIdeal(G)"
+          "J = parityBinomialEdgeIdeal(G)",
+          "needsPackage(\"Graphs\")",
+          "H=graph({{1,2},{2,3},{3,1}})",
+          "I = binomialEdgeIdeal(H)"
           },
      "A synonym for this function is ", TO pbei, ".",
      SeeAlso => {pbei,binomialEdgeIdeal}}
@@ -201,14 +204,17 @@ document {
      Headline => "Binomial edge ideals",
      Usage => "binomialEdgeIdeal G",
      Inputs => {
-          "G" => { "a graph"} },
+          "G" => { "a Graph or a List"} },
      Outputs => {
           {"the binomial edge ideal of G"} },
      "This routine returns the (permanental) binomial edge ideal of G.",
      EXAMPLE {
           "G={{1,2},{2,3},{3,1}}",
           "I = binomialEdgeIdeal(G,Field=>ZZ/2)",
-          "J = binomialEdgeIdeal(G,Permanental=>true)"
+          "J = binomialEdgeIdeal(G,Permanental=>true)",
+          "needsPackage(\"Graphs\")",
+          "H=graph({{1,2},{2,3},{3,1}})",
+          "I = binomialEdgeIdeal(H)"
           },
      "A synonym for this function is ", TO bei, ".",
      SeeAlso => {bei,parityBinomialEdgeIdeal}}
@@ -224,7 +230,7 @@ document {
      Headline => "Disconnectors of a graph",
      Usage => "disconnectors G",
      Inputs => {
-          "G" => { "a graph"} },
+          "G" => { "a Graph or a List"} },
      Outputs => {
           {"the disconnectors of G"} },
      "This routine computes the disconnectors of the parity binomial
@@ -238,11 +244,11 @@ document {
 
 document {
      Key => {isDisconnector,
-	  (isDisconnector, Graph, Set), (isDisconnector,Graph,List)},
+     (isDisconnector,List,List),(isDisconnector,List,Set),(isDisconnector, Graph, Set),(isDisconnector,Graph,List)},
      Headline => "A test for being a disconnector",
      Usage => "isDisconnector(G,S)",
      Inputs => {
-          "G" => { "a graph"},
+          "G" => { "a Graph or a List"},
           "S" => { "a List or a Set"}},
      Outputs => {
           {"true or false, depending on wheater S is a disconnector of
@@ -264,7 +270,7 @@ document {
      Headline => "A test for being an effective disconnector",
      Usage => "isEffective(G,S)",
      Inputs => {
-          "G" => { "a graph"},
+          "G" => { "a Graph"},
           "S" => { "a List or a Set"}},
      Outputs => {
           {"true or false, depending on whether S is an effective disconnector of
