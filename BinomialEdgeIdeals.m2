@@ -183,7 +183,7 @@ document {
           {"the parity binomial edge ideal of G"} },
      "This routine returns the (permanental) parity binomial edge ideal of G.",
      EXAMPLE {
-          "G=graph({{1,2},{2,3},{3,1}})",
+          "G={{1,2},{2,3},{3,1}}",
           "I = parityBinomialEdgeIdeal(G,Field=>ZZ/2)",
           "J = parityBinomialEdgeIdeal(G)"
           },
@@ -206,7 +206,7 @@ document {
           {"the binomial edge ideal of G"} },
      "This routine returns the (permanental) binomial edge ideal of G.",
      EXAMPLE {
-          "G=graph({{1,2},{2,3},{3,1}})",
+          "G={{1,2},{2,3},{3,1}}",
           "I = binomialEdgeIdeal(G,Field=>ZZ/2)",
           "J = binomialEdgeIdeal(G,Permanental=>true)"
           },
@@ -230,7 +230,7 @@ document {
      "This routine computes the disconnectors of the parity binomial
      edge ideal and the permanental binomial edge ideal of G",
      EXAMPLE {
-          "G=graph({{1,2},{2,3},{3,1}})",
+          "G={{1,2},{2,3},{3,1}}",
           "d = disconnectors(G)",
           "d = disconnectors(G,EffectiveOnly=>true)"
           },
@@ -250,6 +250,7 @@ document {
      "This routine checks wheater a Set or a List is a disconnector of
      a graph",
      EXAMPLE {
+          "needsPackage(\"Graphs\")",
           "G=graph({{1,2},{2,3},{3,1}})",
           "S={1}",
           "isDisconnector(G,S)"
@@ -271,6 +272,7 @@ document {
      "This routine checks whether a Set or a List is an effective disconnector of
      a graph",
      EXAMPLE {
+          "needsPackage(\"Graphs\")",
           "G=graph({{1,2},{2,3},{3,1}})",
           "S={1}",
           "isEffective(G,S)"
