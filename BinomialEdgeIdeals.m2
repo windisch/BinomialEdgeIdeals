@@ -120,6 +120,8 @@ return true;
 
 
 isEffective = method (Options => {UseHypergraphs => false})
+isEffective (List,List) := Boolean => (G,S) -> (isEffective(graph(G),S));
+isEffective (List,Set) := Boolean => (G,S) -> (isEffective(graph(G),toList(S)));
 isEffective (Graph,Set) := Boolean => opts -> (G,S) -> (isEffective(G,toList(S),opts));
 isEffective (Graph,List) := Boolean => opts -> (G,S) -> (
 if not isDisconnector(G,S) then return false;
@@ -266,11 +268,11 @@ document {
 
 document {
      Key => {isEffective,
-	  (isEffective, Graph, Set), (isEffective,Graph,List)},
+	  (isEffective, List, Set), (isEffective,List,List),(isEffective, Graph, Set), (isEffective,Graph,List)},
      Headline => "A test for being an effective disconnector",
      Usage => "isEffective(G,S)",
      Inputs => {
-          "G" => { "a Graph"},
+          "G" => { "a Graph or a List"},
           "S" => { "a List or a Set"}},
      Outputs => {
           {"true or false, depending on whether S is an effective disconnector of
