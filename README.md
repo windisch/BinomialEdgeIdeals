@@ -1,4 +1,4 @@
-# BEI
+# BinomialEdgeIdeals
 Macaulay2 package for computations with
 
 * binomial edge ideals,
