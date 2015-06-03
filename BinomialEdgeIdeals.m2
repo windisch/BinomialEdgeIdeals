@@ -333,9 +333,10 @@ assert(isDisconnector(G,{1,3})===false);
 ///
 
 TEST ///
---count connected components
+--count connected components 
 G={{1,2},{2,3},{3,1},{4,5},{6,7},{7,8},{6,8}};
-assert(weightedConnectedComponents(G)==4);
+assert(weightedConnectedComponents(G,WeightMethod=>"PBEI")==4);
+assert(weightedConnectedComponents(G,WeightMethod=>"BEI")==3);
 ///
 
 TEST ///
